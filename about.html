@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About This Site</title>
+  <meta name="description" content="What this site is, who it is for, how we check the numbers, and how we keep them current.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/lucide@1.67.0/dist/umd/lucide.min.js" defer></script>
+  <script src="assets/data.js" defer></script>
+  <script src="assets/site.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html"><span class="brand-mark"><i data-lucide="landmark"></i></span><span>Medicare &amp; Social Security <em>2027</em></span></a>
+      <nav class="nav" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="medicare-part-b-premium-2027.html">Part B 2027</a>
+        <a href="social-security-2027-net-check.html">My 2027 check</a>
+        <a href="medicare-part-b-history.html">History</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap page-narrow" style="padding-bottom:40px">
+    <p class="crumbs"><a href="index.html">Home</a> / About</p>
+    <article class="prose" style="max-width:none">
+      <h1>About this site</h1>
+      <p class="lede">This site explains the 2027 Medicare and Social Security changes in plain language, with a calculator that shows what they mean for your check.</p>
+
+      <div class="card" style="margin-top:28px">
+        <div class="icon-badge"><i data-lucide="heart-handshake"></i></div>
+        <h2 style="margin-top:0">Who it's for</h2>
+        <p style="margin:0">People on Medicare or Social Security, and the family members who help them plan. Text is set large, the calculator runs without sign-up, and every figure links to where it came from.</p>
+      </div>
+
+      <h2>How we check the numbers</h2>
+      <ul>
+        <li><strong>Official sources first.</strong> We use Social Security (ssa.gov), CMS, and Medicare.gov wherever we can.</li>
+        <li><strong>Reputable reporting second.</strong> Where the official page isn't yet available, we note which outlets reported the figure.</li>
+        <li><strong>Status shown.</strong> The <a href="sources.html">Sources page</a> lists every figure and whether it has been confirmed on an official site.</li>
+        <li><strong>Projections replaced.</strong> Forecasts are replaced by official figures as soon as they are published.</li>
+      </ul>
+
+      <h2>Who's behind it</h2>
+      <p>This site is run by <strong>[Your name]</strong>. <em>[Add a short line on your background or why you built it.]</em></p>
+
+      <h2>Independence</h2>
+      <p>This site is not affiliated with CMS, the Social Security Administration, or any insurer or plan. We don't sell Medicare plans. If we add advertising later, it will be labeled and kept separate from the calculators.</p>
+
+      <h2>Keeping it current</h2>
+      <p>The numbers change once a year. Social Security announces the cost-of-living adjustment in October, and CMS announces the Medicare premiums and deductibles in the fall. We update the site when those figures are published, and we show the date of the last check at the bottom of every page.</p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <p class="foot-h">Medicare &amp; Social Security 2027</p>
+        <p class="disclaimer">General information only. Not Medicare, tax, or financial advice. This site is not affiliated with CMS, the Social Security Administration, or any insurer.</p>
+      </div>
+      <nav aria-label="Explore">
+        <p class="foot-h">Explore</p>
+        <ul>
+          <li><a href="medicare-part-b-premium-2027.html">Part B 2027 guide</a></li>
+          <li><a href="social-security-2027-net-check.html">My 2027 check</a></li>
+          <li><a href="medicare-part-b-history.html">Premium history</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="About">
+        <p class="foot-h">About</p>
+        <ul>
+          <li><a href="about.html" aria-current="page">About this site</a></li>
+          <li><a href="sources.html">Sources</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="wrap fine-print">Figures last checked <span data-bind="asOf"></span>. &copy; <span data-year></span></div>
+  </footer>
+</body>
+</html>

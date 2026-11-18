@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Style Preview · Medicare &amp; Social Security 2027</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=IBM+Plex+Mono:wght@400;500;600&family=Public+Sans:wght@400;500;600;700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/lucide@1.67.0/dist/umd/lucide.min.js" defer></script>
+  <style>
+    /* ---------- Preview chrome (neutral, not part of any style) ---------- */
+    :root {
+      --chrome-bg: #E9E7E0;
+      --chrome-card: #FFFFFF;
+      --chrome-ink: #14161A;
+      --chrome-muted: #565B64;
+      --chrome-line: #CDC8BB;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--chrome-bg);
+      color: var(--chrome-ink);
+      font: 400 16px/1.55 "Public Sans", system-ui, sans-serif;
+    }
+    .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+    .topbar { padding: 40px 0 26px; border-bottom: 1px solid var(--chrome-line); }
+    .kicker { font: 600 12px/1 "Public Sans", sans-serif; letter-spacing: .14em; text-transform: uppercase; color: var(--chrome-muted); }
+    h1.chrome { font: 800 42px/1.08 "Public Sans", sans-serif; letter-spacing: -.02em; margin: 12px 0 10px; }
+    .lead { color: var(--chrome-muted); max-width: 72ch; margin: 0; }
+    .notice {
+      display: inline-flex; align-items: center; gap: 10px; margin-top: 18px;
+      background: #FFE14D; color: #14161A; font: 800 13px/1.2 "Public Sans", sans-serif;
+      letter-spacing: .06em; text-transform: uppercase; padding: 10px 14px;
+    }
+    .section { padding: 44px 0 8px; }
+    .section h2 { font: 800 26px/1.2 "Public Sans", sans-serif; margin: 0 0 6px; letter-spacing: -.01em; }
+    .section .lead { margin-bottom: 22px; }
+
+    /* Palettes */
+    .palettes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    .pal { background: var(--chrome-card); border: 1px solid var(--chrome-line); padding: 22px; display: flex; flex-direction: column; gap: 14px; }
+    .pal h3 { font: 800 19px/1.2 "Public Sans", sans-serif; margin: 0; }
+    .pal .desc { margin: 0; font-size: 14px; color: var(--chrome-muted); }
+    .swatch-row { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); height: 64px; border: 1px solid var(--chrome-line); }
+    .swatch-row i { display: block; height: 100%; }
+    .hexes { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 14px; font: 500 12px/1.3 "IBM Plex Mono", monospace; color: var(--chrome-muted); }
+    .hexes li { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+    .hexes i { display: inline-block; width: 12px; height: 12px; border: 1px solid var(--chrome-line); flex: 0 0 auto; }
+    .hexes b { font-weight: 600; color: var(--chrome-ink); }
+    .checks { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; font-size: 14px; }
+    .checks li { display: flex; justify-content: space-between; gap: 10px; border-top: 1px solid var(--chrome-line); padding-top: 6px; }
+    .grade { font: 700 12px/1 "Public Sans", sans-serif; padding: 4px 7px; background: #E3F2E7; color: #14502A; white-space: nowrap; }
+    .grade.aa { background: #E9F0FB; color: #1B3C73; }
+    .grade.fail { background: #FBE3E0; color: #7A1D12; }
+    .pick {
+      margin-top: auto; font: 700 14px/1 "Public Sans", sans-serif; padding: 12px 14px;
+      background: var(--chrome-ink); color: #fff; border: 0; cursor: pointer;
+    }
+    .pick[aria-pressed="true"] { background: #14161A; outline: 3px solid #FFE14D; outline-offset: 2px; }
+    .pick:not([aria-pressed="true"]) { background: #fff; color: var(--chrome-ink); border: 1px solid var(--chrome-ink); }
+
+    /* Style blocks */
+    .style-block { background: var(--chrome-card); border: 1px solid var(--chrome-line); padding: 28px; margin-bottom: 26px; }
+    .style-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: end; margin-bottom: 18px; }
+    .style-head h3 { font: 800 30px/1.1 "Public Sans", sans-serif; margin: 6px 0 0; letter-spacing: -.01em; }
+    .shown { font: 700 12px/1 "Public Sans", sans-serif; letter-spacing: .12em; text-transform: uppercase; background: var(--chrome-ink); color: #fff; padding: 8px 10px; }
+    .facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 0 0 24px; }
+    .fact { border-top: 2px solid var(--chrome-ink); padding-top: 10px; }
+    .fact b { display: block; font: 700 12px/1.2 "Public Sans", sans-serif; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 6px; }
+    .fact span { font-size: 15px; color: #2A2F38; }
+    .mock-frame { background: var(--chrome-bg); padding: 22px; }
+
+    /* Shared placeholder art: X-marked frame with a loud label */
+    .ph { position: relative; overflow: hidden; min-height: 200px; background: var(--surface); border: 1px dashed var(--muted); }
+    .ph svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .ph svg line { stroke: var(--muted); stroke-width: 1; vector-effect: non-scaling-stroke; opacity: .45; }
+    .ph-label {
+      position: absolute; left: 14px; right: 14px; bottom: 14px;
+      background: #FFE14D; color: #14161A; font: 800 12px/1.3 "Public Sans", sans-serif;
+      letter-spacing: .08em; text-transform: uppercase; padding: 9px 12px; text-align: center;
+    }
+    .ic { display: flex; flex-direction: column; gap: 8px; }
+    .ic svg { width: 28px; height: 28px; fill: none; stroke: var(--accent); stroke-linecap: round; stroke-linejoin: round; }
+    .btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ---------- STYLE 1 · Benefits Ledger ---------- */
+    .s-ledger {
+      background: var(--paper); color: var(--ink);
+      font-family: "Source Serif 4", Georgia, serif;
+      padding: 34px; border: 1px solid var(--line);
+    }
+    .s-ledger .top {
+      display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;
+      border-bottom: 3px double var(--ink); padding-bottom: 14px; margin-bottom: 26px;
+    }
+    .s-ledger .brand { font: 500 12px/1 "IBM Plex Mono", monospace; letter-spacing: .16em; text-transform: uppercase; }
+    .s-ledger .stamp { font: 600 12px/1 "IBM Plex Mono", monospace; letter-spacing: .14em; color: var(--accent); border: 2px double var(--accent); padding: 7px 10px; }
+    .s-ledger h4 { font: 700 40px/1.12 "Source Serif 4", Georgia, serif; margin: 0 0 12px; max-width: 20ch; letter-spacing: -.01em; }
+    .s-ledger .lede { font-size: 19px; color: var(--muted); margin: 0; max-width: 50ch; }
+    .s-ledger .cols { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 30px; margin-top: 28px; }
+    .s-ledger .figure {
+      display: inline-block; font: 700 68px/1 "Source Serif 4", Georgia, serif;
+      font-variant-numeric: lining-nums tabular-nums; border-bottom: 3px double var(--ink); padding-bottom: 10px;
+    }
+    .s-ledger .cap { font: 400 14px/1.5 "IBM Plex Mono", monospace; color: var(--muted); margin: 10px 0 18px; }
+    .s-ledger .row {
+      display: flex; justify-content: space-between; gap: 12px;
+      border-bottom: 1px dotted var(--muted); padding: 10px 0; font: 400 15px/1.4 "IBM Plex Mono", monospace;
+    }
+    .s-ledger .row b { font-weight: 500; }
+    .s-ledger .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
+    .s-ledger .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font: 500 13px/1 "IBM Plex Mono", monospace; text-transform: uppercase; letter-spacing: .12em;
+      border: 1.5px solid var(--ink); background: transparent; color: var(--ink); padding: 13px 16px; cursor: pointer;
+    }
+    .s-ledger .btn.solid { background: var(--ink); color: var(--paper); }
+    .s-ledger .ph { min-height: 280px; border: 1px solid var(--ink); }
+    .s-ledger .icons {
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px;
+      margin-top: 26px; border-top: 1px solid var(--line); padding-top: 20px;
+    }
+    .s-ledger .ic { font: 500 13px/1.3 "IBM Plex Mono", monospace; color: var(--ink); }
+    .s-ledger .ic svg { stroke-width: 1.4; }
+
+    /* ---------- STYLE 2 · Civic Grid ---------- */
+    .s-civic {
+      background: var(--surface); color: var(--ink);
+      font-family: "Public Sans", system-ui, sans-serif; border: 1px solid var(--line);
+    }
+    .s-civic .bar {
+      background: var(--ink); color: var(--paper); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+      padding: 14px 28px; font: 700 13px/1 "Public Sans", sans-serif; letter-spacing: .08em; text-transform: uppercase;
+    }
+    .s-civic .hero { background: var(--paper); padding: 40px 28px 34px; border-bottom: 8px solid var(--accent); }
+    .s-civic h4 { font: 800 54px/1.02 "Public Sans", sans-serif; letter-spacing: -.03em; margin: 0 0 16px; max-width: 15ch; }
+    .s-civic .lede { font-size: 19px; line-height: 1.55; color: var(--muted); margin: 0; max-width: 46ch; }
+    .s-civic .grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 18px; padding: 28px; }
+    .s-civic .big { grid-column: span 5; background: var(--accent); color: #fff; padding: 26px 24px; }
+    .s-civic .big .n { font: 800 74px/.95 "Public Sans", sans-serif; letter-spacing: -.04em; white-space: nowrap; }
+    .s-civic .big p { margin: 14px 0 0; font-size: 17px; font-weight: 600; }
+    .s-civic .calc { grid-column: span 7; border: 2px solid var(--ink); padding: 24px; }
+    .s-civic .calc label { display: block; font: 700 15px/1.3 "Public Sans", sans-serif; margin-bottom: 8px; }
+    .s-civic .field { display: flex; align-items: center; border: 2px solid var(--ink); background: var(--surface); padding: 0 14px; max-width: 280px; }
+    .s-civic .field span { font: 700 22px/1 "Public Sans", sans-serif; color: var(--muted); margin-right: 6px; }
+    .s-civic .field b { font: 700 24px/1 "Public Sans", sans-serif; padding: 12px 0; }
+    .s-civic .out { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; border-top: 2px solid var(--ink); margin-top: 20px; padding-top: 14px; font: 700 17px/1.3 "Public Sans", sans-serif; }
+    .s-civic .out strong { font: 800 28px/1 "Public Sans", sans-serif; color: var(--accent); }
+    .s-civic .ph { grid-column: span 12; min-height: 210px; border: 2px solid var(--ink); }
+    .s-civic .icons { grid-column: span 12; display: flex; gap: 32px; flex-wrap: wrap; border-top: 2px solid var(--ink); padding-top: 18px; }
+    .s-civic .ic { font: 700 15px/1.3 "Public Sans", sans-serif; color: var(--ink); }
+    .s-civic .ic svg { stroke-width: 2; }
+    .s-civic .actions { display: flex; gap: 12px; flex-wrap: wrap; padding: 0 28px 28px; }
+    .s-civic .btn {
+      display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+      font: 700 16px/1 "Public Sans", sans-serif; background: var(--accent); color: #fff;
+      border: 2px solid var(--accent); border-radius: 4px; padding: 14px 22px;
+    }
+    .s-civic .btn.ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
+
+    /* ---------- STYLE 3 · Kitchen Table ---------- */
+    .s-kitchen {
+      background: var(--paper); color: var(--ink);
+      font-family: "Atkinson Hyperlegible", system-ui, sans-serif; font-size: 19px; line-height: 1.6;
+      padding: 34px; border-radius: 28px; border: 1px solid var(--line);
+    }
+    .s-kitchen .pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: color-mix(in srgb, var(--accent2) 24%, var(--surface));
+      border-radius: 999px; padding: 8px 16px; font-weight: 700; font-size: 16px;
+    }
+    .s-kitchen .pill svg { width: 18px; height: 18px; fill: none; stroke: var(--ink); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .s-kitchen h4 { font: 700 46px/1.1 "Atkinson Hyperlegible", system-ui, sans-serif; margin: 18px 0 14px; max-width: 18ch; letter-spacing: -.01em; }
+    .s-kitchen .u { position: relative; display: inline; }
+    .s-kitchen .u svg { position: absolute; left: 0; bottom: -10px; width: 100%; height: 14px; overflow: visible; }
+    .s-kitchen .u svg path { fill: none; stroke: var(--accent2); stroke-width: 6; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+    .s-kitchen .lede { margin: 0; max-width: 48ch; color: var(--muted); }
+    .s-kitchen .cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 26px; }
+    .s-kitchen .card { background: var(--surface); border: 2px solid var(--line); border-radius: 22px; padding: 22px; }
+    .s-kitchen .card p { margin: 0; }
+    .s-kitchen .card .big { font: 700 66px/1 "Atkinson Hyperlegible", system-ui, sans-serif; color: var(--accent); margin: 10px 0 4px; letter-spacing: -.01em; }
+    .s-kitchen .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+    .s-kitchen .btn {
+      display: inline-flex; align-items: center; gap: 10px; cursor: pointer;
+      font: 700 19px/1.2 "Atkinson Hyperlegible", system-ui, sans-serif; min-height: 56px; padding: 14px 26px;
+      border-radius: 16px; border: 2px solid var(--accent); background: var(--accent); color: #fff;
+    }
+    .s-kitchen .btn.soft { background: transparent; color: var(--ink); border-color: var(--ink); }
+    .s-kitchen .ph { min-height: 220px; border-radius: 22px; border: 2px solid var(--line); margin-top: 24px; }
+    .s-kitchen .ph-label { border-radius: 12px; font: 700 15px/1.3 "Atkinson Hyperlegible", system-ui, sans-serif; letter-spacing: .01em; text-transform: none; }
+    .s-kitchen .icons { display: flex; gap: 26px; flex-wrap: wrap; margin-top: 22px; }
+    .s-kitchen .ic { font: 700 17px/1.3 "Atkinson Hyperlegible", system-ui, sans-serif; color: var(--ink); }
+    .s-kitchen .ic svg { width: 34px; height: 34px; stroke-width: 2; stroke: var(--accent); }
+
+    /* All-10 list */
+    .list10 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; counter-reset: s; padding: 0; margin: 0; list-style: none; }
+    .list10 li { background: var(--chrome-card); border: 1px solid var(--chrome-line); padding: 18px 20px; counter-increment: s; position: relative; padding-left: 58px; }
+    .list10 li::before { content: counter(s, decimal-leading-zero); position: absolute; left: 18px; top: 18px; font: 700 15px/1 "IBM Plex Mono", monospace; color: var(--chrome-muted); }
+    .list10 h3 { font: 800 18px/1.25 "Public Sans", sans-serif; margin: 0 0 4px; }
+    .list10 p { margin: 0; font-size: 15px; color: #2A2F38; }
+    .list10 .type { display: block; margin-top: 8px; font: 500 12px/1.4 "IBM Plex Mono", monospace; color: var(--chrome-muted); }
+    .list10 .tag-shown { display: inline-block; margin-left: 8px; font: 700 11px/1 "Public Sans", sans-serif; letter-spacing: .1em; text-transform: uppercase; background: #14161A; color: #fff; padding: 4px 6px; vertical-align: 2px; }
+
+    .footer { padding: 36px 0 60px; font-size: 14px; color: var(--chrome-muted); border-top: 1px solid var(--chrome-line); margin-top: 40px; }
+
+    @media (max-width: 860px) {
+      .palettes, .facts, .list10 { grid-template-columns: 1fr; }
+      .style-head { grid-template-columns: 1fr; }
+      .s-civic .big, .s-civic .calc { grid-column: span 12; }
+      .s-ledger .cols, .s-kitchen .cards { grid-template-columns: 1fr; }
+      .s-ledger h4 { font-size: 31px; }
+      .s-civic h4 { font-size: 40px; }
+      .s-civic .grid { padding: 12px; }
+      .s-civic .big { padding: 18px; }
+      .s-civic .big .n { font-size: 48px; }
+      .s-civic .calc { padding: 16px; }
+      .s-ledger .figure { font-size: 50px; }
+      .s-kitchen h4 { font-size: 36px; }
+      .s-kitchen .card .big { font-size: 48px; }
+      .style-block { padding: 18px; }
+      .mock-frame { padding: 10px; }
+      .s-ledger, .s-kitchen { padding: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="wrap">
+      <p class="kicker">Style preview · Medicare &amp; Social Security 2027</p>
+      <h1 class="chrome">Three looks for a plain-English retirement guide</h1>
+      <p class="lead">Each style is shown with the same copy, the same numbers, and the same three palettes. Switch palettes below and every style updates at once. Skim the 10-style list at the bottom to see what else is possible.</p>
+      <span class="notice">Placeholder art on every page · replace before launch</span>
+    </div>
+  </header>
+
+  <!-- PALETTES -->
+  <section class="section">
+    <div class="wrap">
+      <h2>Three palettes</h2>
+      <p class="lead">Chosen for a 65-plus audience and a government-adjacent subject: warm and steady, with no red-and-blue political coding. Contrast is measured live against WCAG 2.1 (AA needs 4.5:1 for body text).</p>
+      <div class="palettes" id="palettes"></div>
+    </div>
+  </section>
+
+  <!-- THREE STYLES -->
+  <section class="section">
+    <div class="wrap">
+      <h2>Three styles, shown in full</h2>
+      <p class="lead">Each mockup uses the same headline, the same figures, and a labeled placeholder. Only the style changes.</p>
+
+      <!-- STYLE 1 -->
+      <article class="style-block" aria-labelledby="s1">
+        <div class="style-head">
+          <div>
+            <p class="kicker">Style 1 of 3</p>
+            <h3 id="s1">Benefits Ledger</h3>
+          </div>
+          <span class="shown">Shown</span>
+        </div>
+        <p class="lead" style="margin-bottom:20px">The paper statement people already keep in a folder: ruled rows, a filed stamp, and figures set in monospace. It looks like something to keep, not something to skim.</p>
+        <div class="facts">
+          <div class="fact"><b>Type</b><span>Source Serif 4 for headings, IBM Plex Mono for figures</span></div>
+          <div class="fact"><b>Motif</b><span>Double rules, filed stamp, dotted ledger rows</span></div>
+          <div class="fact"><b>Why it fits</b><span>Money decisions need to feel official and careful</span></div>
+        </div>
+        <div class="mock-frame">
+          <div class="s-ledger">
+            <div class="top">
+              <span class="brand">Medicare &amp; Social Security 2027</span>
+              <span class="stamp">Filed Nov 18, 2026</span>
+            </div>
+            <h4>Your 2027 Medicare and Social Security, in plain English</h4>
+            <p class="lede">The new Part B premium, the Social Security raise, and what they mean for your check.</p>
+            <div class="cols">
+              <div>
+                <div class="figure">$209.40</div>
+                <p class="cap">Part B premium per month, 2027 (up $6.50)</p>
+                <div class="row"><span>Part B deductible</span><b>$292</b></div>
+                <div class="row"><span>Social Security raise</span><b>3.6%</b></div>
+                <div class="row"><span>Net change on $2,000</span><b>+$65.50</b></div>
+                <div class="actions">
+                  <button class="btn solid" type="button">See my 2027 check <i data-lucide="arrow-right"></i></button>
+                  <button class="btn" type="button">Read the guide</button>
+                </div>
+              </div>
+              <div class="ph" role="img" aria-label="Placeholder art. Replace before launch.">
+                <svg viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="0" x2="100" y2="60"/><line x1="100" y1="0" x2="0" y2="60"/></svg>
+                <span class="ph-label">Placeholder art · replace before launch</span>
+              </div>
+            </div>
+            <div class="icons">
+              <div class="ic"><i data-lucide="landmark"></i><span>Your benefits</span></div>
+              <div class="ic"><i data-lucide="calculator"></i><span>Your check</span></div>
+              <div class="ic"><i data-lucide="book-open"></i><span>The guide</span></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- STYLE 2 -->
+      <article class="style-block" aria-labelledby="s2">
+        <div class="style-head">
+          <div>
+            <p class="kicker">Style 2 of 3</p>
+            <h3 id="s2">Civic Grid</h3>
+          </div>
+          <span class="shown">Shown</span>
+        </div>
+        <p class="lead" style="margin-bottom:20px">The clarity of a government form, with the numbers as the hero. Public Sans is the typeface behind the U.S. Web Design System, so it reads as official without feeling stiff.</p>
+        <div class="facts">
+          <div class="fact"><b>Type</b><span>Public Sans, weights 500 to 800</span></div>
+          <div class="fact"><b>Motif</b><span>Solid color bands, oversized figures, a strict grid</span></div>
+          <div class="fact"><b>Why it fits</b><span>The big number is the message, so it gets the most space</span></div>
+        </div>
+        <div class="mock-frame">
+          <div class="s-civic">
+            <div class="bar">
+              <span>Medicare &amp; Social Security 2027</span>
+              <span>Updated Nov 18, 2026</span>
+            </div>
+            <div class="hero">
+              <h4>Your 2027 Medicare and Social Security, in plain English</h4>
+              <p class="lede">The new Part B premium, the Social Security raise, and what they mean for your check.</p>
+            </div>
+            <div class="grid">
+              <div class="big">
+                <div class="n">$209.40</div>
+                <p>Part B premium per month, up $6.50 from 2026</p>
+              </div>
+              <div class="calc">
+                <label for="civic-amt">Your current monthly benefit</label>
+                <div class="field"><span>$</span><b id="civic-amt">2,000</b></div>
+                <div class="out"><span>Net change in your check</span><strong>+$65.50</strong></div>
+              </div>
+              <div class="ph" role="img" aria-label="Placeholder art. Replace before launch.">
+                <svg viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="0" x2="100" y2="60"/><line x1="100" y1="0" x2="0" y2="60"/></svg>
+                <span class="ph-label">Placeholder art · replace before launch</span>
+              </div>
+              <div class="icons">
+                <div class="ic"><i data-lucide="landmark"></i> Your benefits</div>
+                <div class="ic"><i data-lucide="calculator"></i> Your check</div>
+                <div class="ic"><i data-lucide="book-open"></i> The guide</div>
+              </div>
+            </div>
+            <div class="actions">
+              <button class="btn" type="button">See my 2027 check <i data-lucide="arrow-right"></i></button>
+              <button class="btn ghost" type="button">Read the guide</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- STYLE 3 -->
+      <article class="style-block" aria-labelledby="s3">
+        <div class="style-head">
+          <div>
+            <p class="kicker">Style 3 of 3</p>
+            <h3 id="s3">Kitchen Table</h3>
+          </div>
+          <span class="shown">Shown</span>
+        </div>
+        <p class="lead" style="margin-bottom:20px">A conversation at home. Atkinson Hyperlegible was designed by the Braille Institute for low-vision readers, so it suits readers 65 and up. Big targets, big type, warm paper.</p>
+        <div class="facts">
+          <div class="fact"><b>Type</b><span>Atkinson Hyperlegible, set at 19px and up</span></div>
+          <div class="fact"><b>Motif</b><span>Hand-drawn underline, pill tags, large buttons</span></div>
+          <div class="fact"><b>Why it fits</b><span>Built for the reader first, with no small print to squint at</span></div>
+        </div>
+        <div class="mock-frame">
+          <div class="s-kitchen">
+            <span class="pill"><i data-lucide="calendar-days"></i> Updated November 18, 2026</span>
+            <h4>Your 2027 <span class="u">Medicare and Social Security<svg viewBox="0 0 400 14" preserveAspectRatio="none" aria-hidden="true"><path d="M3 9 C 60 2, 130 13, 210 6 S 330 10, 397 4"/></svg></span>, in plain English</h4>
+            <p class="lede">The new Part B premium, the Social Security raise, and what they mean for the check you actually get.</p>
+            <div class="cards">
+              <div class="card">
+                <p>Part B premium, 2027</p>
+                <div class="big">$209.40</div>
+                <p>a month, up $6.50 from this year</p>
+              </div>
+              <div class="card">
+                <p>Your check, on $2,000 a month</p>
+                <div class="big">+$65.50</div>
+                <p>a month after the raise and premium</p>
+              </div>
+            </div>
+            <div class="actions">
+              <button class="btn" type="button">See my 2027 check <i data-lucide="arrow-right"></i></button>
+              <button class="btn soft" type="button">Read the guide</button>
+            </div>
+            <div class="ph" role="img" aria-label="Placeholder art. Replace before launch.">
+              <svg viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="0" x2="100" y2="60"/><line x1="100" y1="0" x2="0" y2="60"/></svg>
+              <span class="ph-label">Placeholder art · replace before launch</span>
+            </div>
+            <div class="icons">
+              <div class="ic"><i data-lucide="landmark"></i> Your benefits</div>
+              <div class="ic"><i data-lucide="calculator"></i> Your check</div>
+              <div class="ic"><i data-lucide="book-open"></i> The guide</div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ALL TEN -->
+  <section class="section">
+    <div class="wrap">
+      <h2>All ten styles</h2>
+      <p class="lead">The three above are the strongest fits. The other seven stay ready if you want to see them next.</p>
+      <ol class="list10">
+        <li><h3>Benefits Ledger <span class="tag-shown">Shown</span></h3><p>The statement people keep in a folder. Ruled rows and a filed stamp.</p><span class="type">Source Serif 4 · IBM Plex Mono</span></li>
+        <li><h3>Civic Grid <span class="tag-shown">Shown</span></h3><p>Government-form clarity with oversized figures and solid color bands.</p><span class="type">Public Sans</span></li>
+        <li><h3>Kitchen Table <span class="tag-shown">Shown</span></h3><p>A warm, large-type conversation. Hand-drawn underline and pill tags.</p><span class="type">Atkinson Hyperlegible</span></li>
+        <li><h3>Almanac Retro</h3><p>A 1950s retirement almanac, with slab-serif headlines and round seal badges.</p><span class="type">Zilla Slab · Work Sans</span></li>
+        <li><h3>Harbor Chart</h3><p>A nautical chart for your benefits. Contour lines on the history chart, a compass rose, coordinates as section labels.</p><span class="type">EB Garamond · Space Mono</span></li>
+        <li><h3>Blueprint Plan</h3><p>Drawn like a plan. Grid paper and dimension lines call out every figure.</p><span class="type">IBM Plex Sans · IBM Plex Mono</span></li>
+        <li><h3>1935 Poster</h3><p>A flat, bold poster look from the era Social Security began, with ribbon banners for the raise.</p><span class="type">Oswald · Lora</span></li>
+        <li><h3>Quilt &amp; Stitch</h3><p>Family and legacy. Patchwork blocks as dividers and dashed stitched borders.</p><span class="type">Lora · Karla</span></li>
+        <li><h3>Weekly Editorial</h3><p>A Sunday magazine feature with a drop cap, a pull quote, and column rules.</p><span class="type">Newsreader · Inter</span></li>
+        <li><h3>Paper Cutout</h3><p>Layered paper cards with hard offset shadows and colored index tabs.</p><span class="type">DM Serif Display · DM Sans</span></li>
+      </ol>
+      <p class="lead" style="margin-top:22px">Want ten more? Say so and I'll add a second set with new names, type pairings, and palettes.</p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="wrap">
+      Icons: Lucide 1.67.0 (ISC license), loaded from jsDelivr. Type: Google Fonts. No gradients, no emoji. Every piece of artwork is a labeled placeholder.
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var PALETTES = {
+        ink: {
+          name: "Ink & Paper",
+          desc: "Warm paper and deep ink, with brick used for stamps and key figures. Reads like an official statement that was printed well.",
+          paper: "#F5F0E6", surface: "#FFFDF7", ink: "#1D2633", muted: "#55606D", line: "#D6CCBA", accent: "#A3412A", accent2: "#6F8F72"
+        },
+        coastal: {
+          name: "Coastal Calm",
+          desc: "Sea glass and deep teal for a steady, calm read. Coral appears only as a small highlight, never as body text.",
+          paper: "#EEF5F3", surface: "#FFFFFF", ink: "#0F2E36", muted: "#4B6A70", line: "#C4D9D4", accent: "#0F6B6B", accent2: "#E0704F"
+        },
+        harvest: {
+          name: "Harvest Warm",
+          desc: "Oxblood, mustard and wheat. Warm and personal, like a family kitchen table on a Sunday.",
+          paper: "#F7EFE3", surface: "#FFFAF2", ink: "#2B211C", muted: "#64544A", line: "#E0D0B9", accent: "#7A2E3A", accent2: "#D9A03F"
+        }
+      };
+
+      var ROLES = [
+        ["paper", "Paper"], ["surface", "Surface"], ["ink", "Ink"], ["muted", "Muted"],
+        ["line", "Rule"], ["accent", "Accent"], ["accent2", "Highlight"]
+      ];
+
+      function channel(v) {
+        v = v / 255;
+        return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+      }
+      function luminance(hex) {
+        var n = parseInt(hex.slice(1), 16);
+        var r = channel((n >> 16) & 255), g = channel((n >> 8) & 255), b = channel(n & 255);
+        return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+      }
+      function ratio(a, b) {
+        var la = luminance(a), lb = luminance(b);
+        var hi = Math.max(la, lb), lo = Math.min(la, lb);
+        return (hi + 0.05) / (lo + 0.05);
+      }
+      function grade(r) {
+        if (r >= 7) return { label: "AAA", cls: "" };
+        if (r >= 4.5) return { label: "AA", cls: "aa" };
+        return { label: "Fails AA", cls: "fail" };
+      }
+
+      function checksFor(p) {
+        return [
+          ["Body text · ink on paper", p.ink, p.paper],
+          ["Secondary text · muted on paper", p.muted, p.paper],
+          ["Accent text · accent on surface", p.accent, p.surface],
+          ["Button text · white on accent", "#FFFFFF", p.accent]
+        ];
+      }
+
+      function buildPalettes() {
+        var host = document.getElementById("palettes");
+        Object.keys(PALETTES).forEach(function (key) {
+          var p = PALETTES[key];
+          var card = document.createElement("article");
+          card.className = "pal";
+
+          var title = document.createElement("h3");
+          title.textContent = p.name;
+          card.appendChild(title);
+
+          var desc = document.createElement("p");
+          desc.className = "desc";
+          desc.textContent = p.desc;
+          card.appendChild(desc);
+
+          var row = document.createElement("div");
+          row.className = "swatch-row";
+          row.setAttribute("aria-hidden", "true");
+          ROLES.forEach(function (r) {
+            var i = document.createElement("i");
+            i.style.background = p[r[0]];
+            row.appendChild(i);
+          });
+          card.appendChild(row);
+
+          var hexes = document.createElement("ul");
+          hexes.className = "hexes";
+          ROLES.forEach(function (r) {
+            var li = document.createElement("li");
+            var chip = document.createElement("i");
+            chip.style.background = p[r[0]];
+            var name = document.createElement("b");
+            name.textContent = r[1];
+            li.appendChild(chip);
+            li.appendChild(name);
+            li.appendChild(document.createTextNode(" " + p[r[0]]));
+            hexes.appendChild(li);
+          });
+          card.appendChild(hexes);
+
+          var list = document.createElement("ul");
+          list.className = "checks";
+          checksFor(p).forEach(function (c) {
+            var li = document.createElement("li");
+            var r = ratio(c[1], c[2]);
+            var g = grade(r);
+            var label = document.createElement("span");
+            label.textContent = c[0];
+            var badge = document.createElement("span");
+            badge.className = "grade " + g.cls;
+            badge.textContent = r.toFixed(1) + ":1 · " + g.label;
+            li.appendChild(label);
+            li.appendChild(badge);
+            list.appendChild(li);
+          });
+          card.appendChild(list);
+
+          var btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "pick";
+          btn.setAttribute("data-pal", key);
+          btn.textContent = "Use " + p.name;
+          btn.addEventListener("click", function () { applyPalette(key); });
+          card.appendChild(btn);
+
+          host.appendChild(card);
+        });
+      }
+
+      function applyPalette(key) {
+        var p = PALETTES[key];
+        var s = document.body.style;
+        s.setProperty("--paper", p.paper);
+        s.setProperty("--surface", p.surface);
+        s.setProperty("--ink", p.ink);
+        s.setProperty("--muted", p.muted);
+        s.setProperty("--line", p.line);
+        s.setProperty("--accent", p.accent);
+        s.setProperty("--accent2", p.accent2);
+        document.querySelectorAll("[data-pal]").forEach(function (b) {
+          b.setAttribute("aria-pressed", String(b.getAttribute("data-pal") === key));
+        });
+      }
+
+      buildPalettes();
+      applyPalette("ink");
+
+      window.addEventListener("load", function () {
+        if (window.lucide && typeof window.lucide.createIcons === "function") {
+          window.lucide.createIcons();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

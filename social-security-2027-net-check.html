@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Social Security 2027 Net Check Calculator</title>
+  <meta name="description" content="Estimate your 2027 Social Security check after the 3.6% raise and the new $209.40 Part B premium. Enter your benefit and see the result instantly.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/lucide@1.67.0/dist/umd/lucide.min.js" defer></script>
+  <script src="assets/data.js" defer></script>
+  <script src="assets/site.js" defer></script>
+  <script src="assets/net-check.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html"><span class="brand-mark"><i data-lucide="landmark"></i></span><span>Medicare &amp; Social Security <em>2027</em></span></a>
+      <nav class="nav" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="medicare-part-b-premium-2027.html">Part B 2027</a>
+        <a href="social-security-2027-net-check.html" aria-current="page">My 2027 check</a>
+        <a href="medicare-part-b-history.html">History</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="wrap">
+      <p class="crumbs"><a href="index.html">Home</a> / My 2027 check</p>
+      <h1>What will my Social Security check be in 2027?</h1>
+      <p class="lede">Enter your current monthly benefit. The calculator applies the 3.6% raise and the new Part B premium, then shows what is left in your check.</p>
+    </div>
+
+    <section class="wrap" style="margin-top:36px" aria-labelledby="calc-title">
+      <h2 id="calc-title" class="visually-hidden">Calculator</h2>
+      <div class="card calc-card">
+        <div class="calc">
+          <form id="calc-form" novalidate>
+            <div class="field">
+              <label for="benefit">Your current monthly Social Security benefit</label>
+              <p class="hint" id="benefit-hint">The amount you receive now, before the 2027 raise. You'll find it on your SSA statement or in your my Social Security account.</p>
+              <div class="money-input">
+                <span aria-hidden="true">$</span>
+                <input id="benefit" name="benefit" type="text" inputmode="decimal" value="2000" autocomplete="off" aria-describedby="benefit-hint">
+              </div>
+
+              <div class="chips" role="group" aria-label="Quick amounts">
+                <button type="button" class="chip" data-preset="1500" aria-pressed="false">$1,500</button>
+                <button type="button" class="chip" data-preset="2000" aria-pressed="true">$2,000</button>
+                <button type="button" class="chip" data-preset="2500" aria-pressed="false">$2,500</button>
+                <button type="button" class="chip" data-preset="3000" aria-pressed="false">$3,000</button>
+              </div>
+
+              <label class="check">
+                <input id="deducted" type="checkbox" checked>
+                <span>My Part B premium is taken out of my Social Security check</span>
+              </label>
+            </div>
+          </form>
+
+          <div class="results" aria-live="polite">
+            <p id="calc-empty" class="muted" hidden>Enter your benefit to see your estimate.</p>
+            <div id="calc-results">
+              <p class="kicker-label">Estimated net check, 2027</p>
+              <div class="big-net" id="net27">$0.00</div>
+              <span class="delta" id="netChange"></span>
+
+              <div style="margin-top:22px">
+                <div class="result-row"><span>Benefit after the 3.6% raise</span><span class="val" id="gross27"></span></div>
+                <div class="result-row"><span>Monthly raise</span><span class="val" id="raise"></span></div>
+                <div class="result-row"><span>Part B premium, 2027</span><span class="val" id="prem27"></span></div>
+                <div class="result-row"><span>Net check, 2026 (for comparison)</span><span class="val" id="net26"></span></div>
+              </div>
+
+              <div class="bars" aria-hidden="true">
+                <div class="bar-row">
+                  <div class="bar-label"><span>Raise</span><span id="raiseVal"></span></div>
+                  <div class="bar-track"><div class="bar-fill pos" id="barRaise"></div></div>
+                </div>
+                <div class="bar-row">
+                  <div class="bar-label"><span>Premium increase</span><span id="premIncVal"></span></div>
+                  <div class="bar-track"><div class="bar-fill neg" id="barPrem"></div></div>
+                </div>
+              </div>
+
+              <p class="verdict" id="verdict"></p>
+
+              <div class="callout warn" id="hold" hidden>
+                <p><strong>Your check would go down.</strong> Hold-harmless rules may limit the premium increase so your check doesn't shrink. Ask SSA to confirm what applies to you.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="ad-slot" data-size="728x90" data-slot="calc-below-banner" aria-label="Advertisement">
+      <p class="ad-label">Advertisement</p>
+      <div class="ad-box"><span class="ad-tag">Ad slot · 728x90 · below calculator · replace with ad unit</span></div>
+    </aside>
+
+    <div class="wrap article-layout" style="grid-template-columns:minmax(0,1fr);max-width:var(--max);margin-top:24px">
+      <article class="prose" style="max-width:none">
+        <section id="how-it-works">
+          <h2>How this estimate works</h2>
+          <div class="grid-3" style="margin-top:8px">
+            <div class="card">
+              <div class="icon-badge"><i data-lucide="trending-up"></i></div>
+              <h3>1. The raise</h3>
+              <p class="muted">Your current benefit times 3.6%, the 2027 cost-of-living adjustment.</p>
+            </div>
+            <div class="card">
+              <div class="icon-badge warm"><i data-lucide="receipt"></i></div>
+              <h3>2. The premium</h3>
+              <p class="muted">The 2027 standard Part B premium of $209.40, compared with $202.90 in 2026. It's subtracted only if the premium comes out of your check.</p>
+            </div>
+            <div class="card">
+              <div class="icon-badge"><i data-lucide="calculator"></i></div>
+              <h3>3. Your net check</h3>
+              <p class="muted">The raised benefit minus the 2027 premium, compared with your current benefit minus the 2026 premium.</p>
+            </div>
+          </div>
+          <div class="callout" style="margin-top:26px">
+            <p style="margin:0">Estimates assume the standard premium. If you pay the income-related surcharge (IRMAA), your premium is higher. Hold-harmless protection is not modeled. Social Security rounds benefit amounts down to the next whole dollar, so your deposit may differ slightly. This is an estimate, not a benefit statement.</p>
+          </div>
+        </section>
+
+        <section id="faq">
+          <h2>Common questions</h2>
+          <details>
+            <summary>Where do I find my current benefit?</summary>
+            <p>On your Social Security statement at ssa.gov, or in your my Social Security account. Use the amount you receive before the 2027 raise.</p>
+          </details>
+          <details>
+            <summary>What if I have a Medicare Advantage plan?</summary>
+            <p>Many Medicare Advantage plans still have Part B deducted from your check. This calculator covers only the Part B premium. It doesn't include any separate plan premium.</p>
+          </details>
+          <details>
+            <summary>What if my check goes down?</summary>
+            <p>Hold-harmless rules may limit the Part B increase so your check doesn't shrink. Ask SSA if you're not sure whether it applies to you.</p>
+          </details>
+          <details>
+            <summary>Is my information stored?</summary>
+            <p>No. The calculator runs entirely in your browser. Nothing you type is sent to us or saved.</p>
+          </details>
+        </section>
+
+        <aside class="ad-slot in-article" data-size="300x250" data-slot="calc-after-faq" aria-label="Advertisement">
+          <p class="ad-label">Advertisement</p>
+          <div class="ad-box"><span class="ad-tag">Ad slot · 300x250 · after FAQ · replace with ad unit</span></div>
+        </aside>
+
+        <div class="next">
+          <a class="card card-link" href="medicare-part-b-premium-2027.html">
+            <div class="icon-badge"><i data-lucide="file-text"></i></div>
+            <h3>Understand the premium</h3>
+            <p class="muted">What Part B covers, who pays more, and what to do before January.</p>
+          </a>
+          <a class="card card-link" href="medicare-part-b-history.html">
+            <div class="icon-badge warm"><i data-lucide="history"></i></div>
+            <h3>See the history</h3>
+            <p class="muted">Eight years of premiums and deductibles, year by year.</p>
+          </a>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <p class="foot-h">Medicare &amp; Social Security 2027</p>
+        <p class="disclaimer">General information only. Not Medicare, tax, or financial advice. This site is not affiliated with CMS, the Social Security Administration, or any insurer.</p>
+      </div>
+      <nav aria-label="Explore">
+        <p class="foot-h">Explore</p>
+        <ul>
+          <li><a href="medicare-part-b-premium-2027.html">Part B 2027 guide</a></li>
+          <li><a href="social-security-2027-net-check.html">My 2027 check</a></li>
+          <li><a href="medicare-part-b-history.html">Premium history</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="About">
+        <p class="foot-h">About</p>
+        <ul>
+          <li><a href="about.html">About this site</a></li>
+          <li><a href="sources.html">Sources</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="wrap fine-print">Figures last checked <span data-bind="asOf"></span>. &copy; <span data-year></span></div>
+  </footer>
+</body>
+</html>

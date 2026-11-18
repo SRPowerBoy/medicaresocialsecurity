@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Medicare Part B Premium History, 2020 to 2027</title>
+  <meta name="description" content="Medicare Part B premiums, deductibles, and Part A deductibles from 2020 to 2027, shown as an interactive chart and a year-by-year table.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/lucide@1.67.0/dist/umd/lucide.min.js" defer></script>
+  <script src="assets/data.js" defer></script>
+  <script src="assets/site.js" defer></script>
+  <script src="assets/history.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html"><span class="brand-mark"><i data-lucide="landmark"></i></span><span>Medicare &amp; Social Security <em>2027</em></span></a>
+      <nav class="nav" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="medicare-part-b-premium-2027.html">Part B 2027</a>
+        <a href="social-security-2027-net-check.html">My 2027 check</a>
+        <a href="medicare-part-b-history.html" aria-current="page">History</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="wrap">
+      <p class="crumbs"><a href="index.html">Home</a> / Premium history</p>
+      <h1>Medicare Part B premium history, 2020 to 2027</h1>
+      <p class="lede">Eight years of Part B premiums and deductibles, and how each year compared with the one before.</p>
+    </div>
+
+    <section class="wrap section" style="margin-top:36px" aria-labelledby="chart-title">
+      <div class="card" style="padding:32px">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap">
+          <h2 id="chart-title" style="margin:0;font-size:1.6rem">Compare by year</h2>
+          <div class="seg" role="group" aria-label="Choose what to chart">
+            <button type="button" data-metric="premium" aria-pressed="true">Monthly premium</button>
+            <button type="button" data-metric="deductible" aria-pressed="false">Part B deductible</button>
+            <button type="button" data-metric="partADeductible" aria-pressed="false">Part A deductible</button>
+          </div>
+        </div>
+        <div class="chart" id="chart" role="img" aria-label="Monthly standard Part B premium by year, 2020 to 2027"></div>
+        <p class="muted" style="margin:14px 0 0;font-size:1rem">Values come from CMS fact sheets as compiled by FedRateCalc. The 2027 figures are the official amounts reported on November 17, 2026.</p>
+      </div>
+    </section>
+
+    <section class="wrap section" aria-labelledby="takeaways">
+      <h2 id="takeaways" style="margin-top:0">What the numbers show</h2>
+      <div class="grid-3">
+        <article class="card takeaway">
+          <div class="icon-badge"><i data-lucide="trending-up"></i></div>
+          <p class="big-word">6 of 7</p>
+          <h3 style="margin:0">Years up</h3>
+          <p class="muted" style="margin:0">The premium rose in 6 of the last 7 years. The only drop was 2023, when it fell $5.20.</p>
+        </article>
+        <article class="card takeaway">
+          <div class="icon-badge warm"><i data-lucide="chart-column"></i></div>
+          <p class="big-word">+14.5%</p>
+          <h3 style="margin:0">The biggest jump</h3>
+          <p class="muted" style="margin:0">2022 saw the largest increase in this period: up $21.60, or 14.5%.</p>
+        </article>
+        <article class="card takeaway">
+          <div class="icon-badge"><i data-lucide="calendar-check"></i></div>
+          <p class="big-word">+$6.50</p>
+          <h3 style="margin:0">A smaller step in 2027</h3>
+          <p class="muted" style="margin:0">The $6.50 rise is the smallest dollar increase since 2021.</p>
+        </article>
+      </div>
+    </section>
+
+    <aside class="ad-slot" data-size="728x90" data-slot="history-mid" aria-label="Advertisement">
+      <p class="ad-label">Advertisement</p>
+      <div class="ad-box"><span class="ad-tag">Ad slot · 728x90 · between takeaways and table · replace with ad unit</span></div>
+    </aside>
+
+    <section class="wrap section" aria-labelledby="table-title">
+      <h2 id="table-title">Year by year</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Year</th>
+              <th scope="col" class="num">Monthly premium</th>
+              <th scope="col" class="num">Change</th>
+              <th scope="col" class="num">Change %</th>
+              <th scope="col" class="num">Part B deductible</th>
+              <th scope="col" class="num">Part A deductible</th>
+            </tr>
+          </thead>
+          <tbody id="historyBody"></tbody>
+        </table>
+      </div>
+      <p class="muted">Confirm each year against the CMS fact sheets before relying on it. The status is listed on the <a href="sources.html">Sources page</a>.</p>
+    </section>
+
+    <div class="wrap">
+      <div class="next">
+        <a class="card card-link" href="medicare-part-b-premium-2027.html">
+          <div class="icon-badge"><i data-lucide="file-text"></i></div>
+          <h3>The 2027 guide</h3>
+          <p class="muted">What the new premium means, who pays it, and what to do before January.</p>
+        </a>
+        <a class="card card-link" href="social-security-2027-net-check.html">
+          <div class="icon-badge warm"><i data-lucide="calculator"></i></div>
+          <h3>Check your 2027 check</h3>
+          <p class="muted">See how the raise and the premium affect your own monthly benefit.</p>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <p class="foot-h">Medicare &amp; Social Security 2027</p>
+        <p class="disclaimer">General information only. Not Medicare, tax, or financial advice. This site is not affiliated with CMS, the Social Security Administration, or any insurer.</p>
+      </div>
+      <nav aria-label="Explore">
+        <p class="foot-h">Explore</p>
+        <ul>
+          <li><a href="medicare-part-b-premium-2027.html">Part B 2027 guide</a></li>
+          <li><a href="social-security-2027-net-check.html">My 2027 check</a></li>
+          <li><a href="medicare-part-b-history.html">Premium history</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="About">
+        <p class="foot-h">About</p>
+        <ul>
+          <li><a href="about.html">About this site</a></li>
+          <li><a href="sources.html">Sources</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="wrap fine-print">Figures last checked <span data-bind="asOf"></span>. &copy; <span data-year></span></div>
+  </footer>
+</body>
+</html>
